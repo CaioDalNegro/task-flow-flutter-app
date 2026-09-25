@@ -32,12 +32,17 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('TaskFlow'),
       ),
-      body: const Column(
-        children: [
-          Text('Estudar Dart'),
-          Text('Aprender Flutter'),
-          Text('Criar meu aplicativo'),
-        ],
+      
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        //margin: EdgeInsets.all(16),
+        child: const Column(
+          children: [
+            Text('Estudar Dart'),
+            Text('Aprender Flutter'),
+            Text('Criar meu aplicativo'),
+          ],
+        ),
       ),
     );
   }
