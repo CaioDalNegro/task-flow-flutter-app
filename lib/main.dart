@@ -28,7 +28,13 @@ class HomePage extends StatefulWidget {
 
 // Estado da HomePage ---------------------------------------------->
 class _HomePageState extends State<HomePage> {
-  bool tarefaConcluida = false;
+  List<bool> tarefasConcluidas = [false, false, false];
+
+  List<String> tarefas = [
+    'Estudar Dart',
+    'Aprender Flutter',
+    'Criar meu aplicativo',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -39,50 +45,24 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
-          children: [
-            Row(
-              children: [
-                Checkbox(
-                  value: tarefaConcluida,
-                  onChanged: (value) {
-                    setState(() {
-                      tarefaConcluida = value!;
-                    });
-                  },
-                ),
-                const Text('Estudar Dart'),
-              ],
-            ),
-            SizedBox(height: 20,),
-            Row(
-              children: [
-                Checkbox(
-                  value: tarefaConcluida,
-                  onChanged: (value) {
-                    setState(() {
-                      tarefaConcluida = value!;
-                    });
-                  },
-                ),
-                const Text('Aprender Flutter'),
-              ],
-            ),
-            SizedBox(height: 20,),
-            Row(
-              children: [
-                Checkbox(
-                  value: tarefaConcluida,
-                  onChanged: (value) {
-                    setState(() {
-                      tarefaConcluida = value!;
-                    });
-                  },
-                ),
-                const Text('Criar meu aplicativo'),
-              ],
-            ),
-            SizedBox(height: 20,),
-          ],
+          children: List.generate(tarefas.length, (index) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 20),
+              child: Row(
+                children: [
+                  Checkbox(
+                    value: tarefasConcluidas[index],
+                    onChanged: (value) {
+                      setState(() {
+                        tarefasConcluidas[index] = value!;
+                      });
+                    },
+                  ),
+                  Text(tarefas[index]),
+                ],
+              ),
+            );
+          }),
         ),
       ),
     );
