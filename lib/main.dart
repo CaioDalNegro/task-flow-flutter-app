@@ -1,75 +1,36 @@
 import 'package:flutter/material.dart';
 
-// Ponto de entrada da aplicação.
-// É a primeira função executada quando o aplicativo inicia.
+import 'pages/home_page.dart';
+
+// =============================================================================
+// PONTO DE ENTRADA
+// -----------------------------------------------------------------------------
+// `main()` é a primeira função executada quando o aplicativo inicia.
+// `runApp()` recebe o widget raiz e o desenha na tela.
+// =============================================================================
 void main() {
   runApp(const MyApp());
 }
 
-// Responsável por configurar a aplicação ------------------------>
+// =============================================================================
+// CONFIGURAÇÃO DO APP
+// -----------------------------------------------------------------------------
+// StatelessWidget = widget SEM estado: depois de criado, não muda.
+// Ideal aqui, pois a configuração do app é fixa.
+// =============================================================================
 class MyApp extends StatelessWidget {
+  // `super.key` repassa a key (identificador opcional) para a classe pai.
   const MyApp({super.key});
 
+  // `build` descreve como o widget aparece na tela.
+  // `@override` indica que estamos reescrevendo um método da classe pai.
   @override
   Widget build(BuildContext context) {
+    // `const` → nada aqui dentro muda, então o Flutter não precisa recriar.
     return const MaterialApp(
-      title: 'TaskFlow',
+      title: 'TaskFlow', // Nome do app no sistema (ex.: lista de apps abertos).
       debugShowCheckedModeBanner: false, // Remove a faixa "DEBUG".
-      home: HomePage(), // Define a primeira tela da aplicação.
-    );
-  }
-}
-
-// Modelo que representa uma tarefa -------------------------------->
-class Tarefa {
-  String titulo;
-  bool concluida;
-
-  Tarefa(this.titulo, {this.concluida = false});
-}
-
-// Widget que representa a tela principal ------------------------->
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-// Estado da HomePage ---------------------------------------------->
-class _HomePageState extends State<HomePage> {
-  final List<Tarefa> tarefas = [
-    Tarefa('Estudar Dart'),
-    Tarefa('Aprender Flutter'),
-    Tarefa('Criar meu aplicativo'),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('TaskFlow'),
-      ),
-      // ListView.builder cria os itens sob demanda e permite rolagem.
-      body: ListView.builder(
-        padding: const EdgeInsets.all(20),
-        itemCount: tarefas.length,
-        itemBuilder: (context, index) {
-          final tarefa = tarefas[index];
-
-          // CheckboxListTile deixa a linha inteira clicável.
-          return CheckboxListTile(
-            controlAffinity: ListTileControlAffinity.leading,
-            title: Text(tarefa.titulo),
-            value: tarefa.concluida,
-            onChanged: (value) {
-              setState(() {
-                tarefa.concluida = value ?? false;
-              });
-            },
-          );
-        },
-      ),
+      home: HomePage(), // Primeira tela da aplicação.
     );
   }
 }

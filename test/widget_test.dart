@@ -27,4 +27,29 @@ void main() {
 
     expect(primeiroCheckbox().value, isTrue);
   });
+
+  testWidgets('Adiciona uma nova tarefa pelo botão +',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pumpAndSettle();
+
+    await tester.enterText(find.byType(TextField), 'Nova tarefa de teste');
+    await tester.tap(find.text('Adicionar'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Nova tarefa de teste'), findsOneWidget);
+  });
+
+  testWidgets('Não adiciona tarefa vazia', (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Adicionar'));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(CheckboxListTile), findsNWidgets(3));
+  });
 }
