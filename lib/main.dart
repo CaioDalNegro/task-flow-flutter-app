@@ -12,10 +12,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const HomePage(), // Define a primeira tela da aplicação.
+    return const MaterialApp(
+      title: 'TaskFlow',
+      debugShowCheckedModeBanner: false, // Remove a faixa "DEBUG".
+      home: HomePage(), // Define a primeira tela da aplicação.
     );
   }
+}
+
+// Modelo que representa uma tarefa -------------------------------->
+class Tarefa {
+  String titulo;
+  bool concluida;
+
+  Tarefa(this.titulo, {this.concluida = false});
 }
 
 // Widget que representa a tela principal ------------------------->
@@ -28,12 +38,10 @@ class HomePage extends StatefulWidget {
 
 // Estado da HomePage ---------------------------------------------->
 class _HomePageState extends State<HomePage> {
-  List<bool> tarefasConcluidas = [false, false, false];
-
-  List<String> tarefas = [
-    'Estudar Dart',
-    'Aprender Flutter',
-    'Criar meu aplicativo',
+  final List<Tarefa> tarefas = [
+    Tarefa('Estudar Dart'),
+    Tarefa('Aprender Flutter'),
+    Tarefa('Criar meu aplicativo'),
   ];
 
   @override
@@ -42,28 +50,25 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('TaskFlow'),
       ),
-      body: Padding(
+      // ListView.builder cria os itens sob demanda e permite rolagem.
+      body: ListView.builder(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          children: List.generate(tarefas.length, (index) {
-            return Padding(
-              padding: const EdgeInsets.only(bottom: 20),
-              child: Row(
-                children: [
-                  Checkbox(
-                    value: tarefasConcluidas[index],
-                    onChanged: (value) {
-                      setState(() {
-                        tarefasConcluidas[index] = value!;
-                      });
-                    },
-                  ),
-                  Text(tarefas[index]),
-                ],
-              ),
-            );
-          }),
-        ),
+        itemCount: tarefas.length,
+        itemBuilder: (context, index) {
+          final tarefa = tarefas[index];
+
+          // CheckboxListTile deixa a linha inteira clicável.
+          return CheckboxListTile(
+            controlAffinity: ListTileControlAffinity.leading,
+            title: Text(tarefa.titulo),
+            value: tarefa.concluida,
+            onChanged: (value) {
+              setState(() {
+                tarefa.concluida = value ?? false;
+              });
+            },
+          );
+        },
       ),
     );
   }
