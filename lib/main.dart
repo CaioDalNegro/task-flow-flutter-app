@@ -28,7 +28,7 @@ class HomePage extends StatefulWidget {
 
 // Estado da HomePage ---------------------------------------------->
 class _HomePageState extends State<HomePage> {
-  // bool tarefaConcluida = false;
+  bool tarefaConcluida = false;
 
   @override
   Widget build(BuildContext context) {
@@ -38,21 +38,50 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: const Column(
+        child: Column(
           children: [
-            Text('Estudar Dart'),
-
-            SizedBox(
-              height: 20,
+            Row(
+              children: [
+                Checkbox(
+                  value: tarefaConcluida,
+                  onChanged: (value) {
+                    setState(() {
+                      tarefaConcluida = value!;
+                    });
+                  },
+                ),
+                const Text('Estudar Dart'),
+              ],
             ),
-
-            Text('Aprender Flutter'),
-
-            SizedBox(
-              height: 20,
+            SizedBox(height: 20,),
+            Row(
+              children: [
+                Checkbox(
+                  value: tarefaConcluida,
+                  onChanged: (value) {
+                    setState(() {
+                      tarefaConcluida = value!;
+                    });
+                  },
+                ),
+                const Text('Aprender Flutter'),
+              ],
             ),
-
-            Text('Criar meu aplicativo'),
+            SizedBox(height: 20,),
+            Row(
+              children: [
+                Checkbox(
+                  value: tarefaConcluida,
+                  onChanged: (value) {
+                    setState(() {
+                      tarefaConcluida = value!;
+                    });
+                  },
+                ),
+                const Text('Criar meu aplicativo'),
+              ],
+            ),
+            SizedBox(height: 20,),
           ],
         ),
       ),
