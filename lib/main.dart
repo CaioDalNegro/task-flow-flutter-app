@@ -3,28 +3,32 @@ import 'package:flutter/material.dart';
 // Ponto de entrada da aplicação.
 // É a primeira função executada quando o aplicativo inicia.
 void main() {
-  // Informa ao Flutter qual será o Widget raiz da aplicação.
   runApp(const MyApp());
 }
 
-// Widget raiz da nossa aplicação.
+// Responsável por configurar a aplicação ------------------------>
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  const MyApp({super.key}); // Construtor do MyApp.
-
-  // Constrói a interface desse Widget.
   @override
   Widget build(BuildContext context) {
-
-    // MaterialApp representa a configuração principal da aplicação.
     return MaterialApp(
-      home: const HomePage(), // A tela inicial da aplicação será definida aqui.
+      home: const HomePage(), // Define a primeira tela da aplicação.
     );
   }
 }
 
-class HomePage extends StatelessWidget {
+// Widget que representa a tela principal ------------------------->
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+// Estado da HomePage ---------------------------------------------->
+class _HomePageState extends State<HomePage> {
+  // bool tarefaConcluida = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,25 +36,24 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('TaskFlow'),
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: const Column(
-            children: [
-              Text('Estudar Dart'),
+          children: [
+            Text('Estudar Dart'),
 
-              SizedBox(
-                height: 20,
-              ),
+            SizedBox(
+              height: 20,
+            ),
 
-              Text('Aprender Flutter'),
+            Text('Aprender Flutter'),
 
-              SizedBox(
-                height: 20,
-              ),
+            SizedBox(
+              height: 20,
+            ),
 
-              Text('Criar meu aplicativo'),
-            ],
+            Text('Criar meu aplicativo'),
+          ],
         ),
       ),
     );
